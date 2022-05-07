@@ -7,6 +7,7 @@
 // @match        https://getquicker.net/*
 // @grant        none
 // @license      MIT
+// @homepage     https://greasyfork.org/zh-CN/scripts/444549-quicker%E9%AB%98%E4%BA%AE%E4%B8%93%E4%B8%9A%E7%89%88%E7%94%A8%E6%88%B7/admin
 // ==/UserScript==
 
 (function () {

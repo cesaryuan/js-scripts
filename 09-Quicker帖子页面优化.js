@@ -9,6 +9,7 @@
 // @match        https://getquicker.net/Common/Topics/ViewTopic/*
 // @grant        none
 // @license      MIT
+// @homepage        https://greasyfork.org/zh-CN/scripts/444527-quicker%E8%AE%A8%E8%AE%BA%E5%8C%BA%E5%B8%96%E5%AD%90%E9%A1%B5%E9%9D%A2%E4%BC%98%E5%8C%96/admin
 // ==/UserScript==
 
 (function () {
