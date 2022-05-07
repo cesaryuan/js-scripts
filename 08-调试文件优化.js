@@ -81,11 +81,18 @@
     max-height: 3em;
     overflow: hidden;
 }
-  .quicker-warn-step {
-    background-color: #ffd6d6 !important;
+  .collapsed .quicker-warn-step {
+    background-color: #ffdada !important;
   }
+  .quicker-warn-step {
+    background-color: #fff4f4 !important;
+  }
+
   .quicker-light {
     background-color: #f8f8f8 !important;
+  }
+  .quicker-forbid > *{
+    text-decoration: line-through !important;
   }
   .quicker-forbid::after {
       content: '已禁用';
