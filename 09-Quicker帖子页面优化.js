@@ -1,15 +1,16 @@
 // ==UserScript==
 // @name         Quicker讨论区帖子页面优化
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.5
 // @description  优化Quicker讨论区帖子的评论显示，使其结构更加清晰
 // @author       Cesaryuan
 // @update       2022-05-07 1.支持动作评论 2.高亮专业版用户 3.修复bug
+// @update       2022-05-09 1.提升运行速度 2.修复bug
 // @match        https://getquicker.net/QA/Question/*
 // @match        https://getquicker.net/Common/Topics/ViewTopic/*
 // @grant        none
 // @license      MIT
-// @homepage        https://greasyfork.org/zh-CN/scripts/444527-quicker%E8%AE%A8%E8%AE%BA%E5%8C%BA%E5%B8%96%E5%AD%90%E9%A1%B5%E9%9D%A2%E4%BC%98%E5%8C%96/admin
+// @homepage     https://greasyfork.org/zh-CN/scripts/444527-quicker%E8%AE%A8%E8%AE%BA%E5%8C%BA%E5%B8%96%E5%AD%90%E9%A1%B5%E9%9D%A2%E4%BC%98%E5%8C%96/admin
 // ==/UserScript==
 
 (function () {
@@ -20,7 +21,7 @@
         elemets.forEach(element => {
             /** @type {HTMLSpanElement} */
             var header = null;
-            if(element.children.length == 2) {
+            if(element.querySelector('.user-content:first-child')) {
                 header = document.createElement('span');
                 element.prepend(header);
             } else {
