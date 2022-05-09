@@ -5,7 +5,7 @@
 // @description  优化Quicker讨论区帖子的评论显示，使其结构更加清晰
 // @author       Cesaryuan
 // @update       2022-05-07 1.支持动作评论 2.高亮专业版用户 3.修复bug
-// @update       2022-05-09 1.提升运行速度 2.修复bug
+// @update       2022-05-09 1.修复bug
 // @match        https://getquicker.net/QA/Question/*
 // @match        https://getquicker.net/Common/Topics/ViewTopic/*
 // @grant        none
