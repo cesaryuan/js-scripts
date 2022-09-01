@@ -5,6 +5,7 @@
 // @description  优化Quicker原版调试文件体验
 // @author       Cesaryuan
 // @match        file:///*/quicker_*_log.htm
+// @match        https://temp.getquicker.net/*
 // @require      http://code.jquery.com/jquery-2.2.4.min.js
 // @require      http://code.jquery.com/color/jquery.color-2.1.2.min.js
 // @grant        none
