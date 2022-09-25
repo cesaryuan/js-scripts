@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         调试文件优化
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.4
 // @description  优化Quicker原版调试文件体验
 // @author       Cesaryuan
 // @match        file:///*/quicker_*_log.htm
