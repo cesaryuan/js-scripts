@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         知网搜索修复
 // @namespace    http://tampermonkey.net/
-// @version      0.2
+// @version      0.3
 // @description  修复知网更新后不能通过 url params 进行搜索的问题
 // @author       Cesaryuan
 // @match        https://epub.cnki.net/kns/brief/default_result.aspx*
