@@ -4,8 +4,8 @@
 // @version      0.2
 // @description  修复知网更新后不能通过 url params 进行搜索的问题
 // @author       Cesaryuan
-// @match        https://epub.cnki.net/kns/brief/default_result.aspx?*
-// @match        http*://kns.cnki.net/kns8/defaultresult/index?*
+// @match        https://epub.cnki.net/kns/brief/default_result.aspx*
+// @match        https://kns.cnki.net/kns8/defaultresult/index*
 // @icon         https://www.google.com/s2/favicons?domain=cnki.net
 // @grant        none
 // @license      MIT
