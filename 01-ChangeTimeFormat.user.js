@@ -11,99 +11,71 @@
 // @run-at       document-idle
 // ==/UserScript==
 
-(function() {
-    'use strict';
+(function () {
+    "use strict";
     // 所有函数返回一个数组
     const CONFIG = {
         webConfig: {
             "www.voidtools.com": {
-                "viewtopic.php": function (){
+                "viewtopic.php": function () {
                     var items = [
-                        ...document.querySelectorAll('.author').lastChild,
-                        ...document.querySelectorAll('.profile-joined').lastChild,
+                        ...document.querySelectorAll(".author").lastChild,
+                        ...document.querySelectorAll(".profile-joined").lastChild,
                     ];
-                    items.forEach(item => {
+                    items.forEach((item) => {
                         item.textContent = formatDate(item.textContent.trim());
                     });
-                }
+                },
             },
             "stackoverflow.com": {
-                "questions\/\\d": function (){
-                    Array.from(document.querySelectorAll('.relativetime')).forEach(function (ele){
+                "questions/\\d": function () {
+                    Array.from(document.querySelectorAll(".relativetime")).forEach(function (ele) {
                         ele.textContent = formatDate(ele.title);
                     });
-                    Array.from(document.querySelectorAll('.relativetime-clean')).forEach(function (ele){
+                    Array.from(document.querySelectorAll(".relativetime-clean")).forEach(function (
+                        ele
+                    ) {
                         ele.textContent = formatDate(ele.title.substring(0, 20));
                     });
-                }
+                },
             },
             "github.com": {
-                ".": function (){
-                    Array.from(document.querySelectorAll('relative-time')).forEach(function (ele){
-                        ele.textContent = formatDate(ele.getAttribute('datetime'));
-                    })
-                }
+                ".": function () {
+                    Array.from(document.querySelectorAll("relative-time")).forEach(function (ele) {
+                        ele.textContent = formatDate(ele.getAttribute("datetime"));
+                    });
+                },
             },
             "softoroom.net": {
-                "net/topic": function (){
-                    Array.from(document.querySelectorAll('time')).forEach(function (ele){
-                        ele.textContent = formatDate(ele.getAttribute('datetime'));
-                    })
-                }
+                "net/topic": function () {
+                    Array.from(document.querySelectorAll("time")).forEach(function (ele) {
+                        ele.textContent = formatDate(ele.getAttribute("datetime"));
+                    });
+                },
             },
             "resource.dopus.com": {
-                "/t": function (){
-                    Array.from(document.querySelectorAll('.relative-date')).forEach(function (ele){
-                        ele.textContent = formatDate(ele.getAttribute('data-time'));
-                    });                    
-                } 
-            }
-        }
-    }
+                "/t": function () {
+                    Array.from(document.querySelectorAll(".relative-date")).forEach(function (ele) {
+                        ele.textContent = formatDate(ele.getAttribute("data-time"));
+                    });
+                },
+            },
+        },
+    };
     let host = window.location.host;
     let matchConfig = CONFIG.webConfig[host];
 
     main();
-    addButtonToRightBottom('转换时间', main);
-
-    // onHrefChange(() => setTimeout(main, 1000));
-
-    // function onHrefChange(func){
-    //     var oldHref = document.location.href;
-    //     var bodyList = document.querySelector("body")
-    //     , observer = new MutationObserver(function(mutations) {
-    //             mutations.forEach(function(mutation) {
-    //                 if (oldHref != document.location.href) {
-    //                     oldHref = document.location.href;
-    //                     // MYCODE
-    //                     func();
-                        
-    //                 }
-    //             });
-    //         });
-    //     var config = {
-    //         childList: true,
-    //         subtree: true
-    //     };
-    //     observer.observe(bodyList, config);
-    // }
-
-    function main(){
+    addButtonToRightBottom("转换时间", main);
+    observeElement(document.body, main);
+    function main() {
         console.log("@Cesaryuan 转换网页时间形式开始运行");
         let href = window.location.href;
-        if(matchConfig){
-            for(let key in matchConfig){
-                if(href.match(key)){
-                    let toFormatCSS = matchConfig[key];
-                    toFormatCSS();
-                    // for(let item of toFormatCSS()){
-                    //     if(item instanceof Node)
-                    //         item && formatDate(item.textContent.trim(), item);
-                    //     else if(item instanceof Array)
-                    //         item && formatDate(item[0], item[1]);
-                    //     else
-                    //         console.error("Invalid Type: " + item);
-                    // }
+        if (matchConfig) {
+            for (let key in matchConfig) {
+                if (href.match(key)) {
+                    let functionA = matchConfig[key];
+                    functionA();
                     break;
                 }
             }
@@ -113,7 +85,7 @@
     function formatDate(dateText) {
         // let dateText = dateElement.textContent.trim();
         let date = new Date(dateText);
-        if(/^\d{10,13}$/.test(dateText)){
+        if (/^\d{10,13}$/.test(dateText)) {
             date = new Date(parseInt(dateText));
         }
 
@@ -166,5 +138,22 @@
             z-index: 9999;
         `;
         document.body.appendChild(button);
+    }
+
+    function observeElement(element, callback) {
+        let observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.type === "childList") {
+                    if(callback()){
+                        disconnect();
+                    }
+                }
+            });
+        });
+        const disconnect = observer.disconnect;
+        observer.observe(element, {
+            childList: true,
+            subtree: true
+        });
     }
 })();
