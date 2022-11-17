@@ -1,13 +1,19 @@
 // ==UserScript==
 // @name         转换网页时间形式
-// @namespace    http://tampermonkey.net/
-// @version      0.2
+// @namespace    Cesaryuan
+// @version      0.3
 // @description  将网页上的时间转化为更加友好的形式，提供自动触发和手动触发两种方式（有的网页会自动刷新）
-// @author       You
+// @author       Cesaryuan
+// @update       2022-10-28 1.自动触发
 // @update       2022-05-09 1.改进配置形式 2.新增dopus网站支持 3.右下角添加手动触发按钮
-// @include      /^https?://(www\.)?(voidtools|stackoverflow|github|resource.dopus)\.\w+/.*$/
+// @match        https://www.voidtools.com/*
+// @match        https://stackoverflow.com/*
+// @match        https://github.com/*
+// @match        https://softoroom.net/*
+// @match        https://resource.dopus.com/*
 // @icon         https://www.google.com/s2/favicons?domain=voidtools.com
 // @grant        none
+// @grant        window.onurlchange
 // @run-at       document-idle
 // ==/UserScript==
 
@@ -42,7 +48,7 @@
             "github.com": {
                 ".": function () {
                     Array.from(document.querySelectorAll("relative-time")).forEach(function (ele) {
-                        ele.textContent = formatDate(ele.getAttribute("datetime"));
+                        (ele.shadowRoot || ele).textContent = formatDate(ele.getAttribute("datetime"));
                     });
                 },
             },
@@ -64,14 +70,15 @@
     };
     let host = window.location.host;
     let matchConfig = CONFIG.webConfig[host];
-
-    main();
-    addButtonToRightBottom("转换时间", main);
-    observeElement(document.body, main);
-    function main() {
-        console.log("@Cesaryuan 转换网页时间形式开始运行");
-        let href = window.location.href;
-        if (matchConfig) {
+    if(matchConfig){
+        main();
+        addButtonToRightBottom("转换时间", main);
+        // observeElement(document.body, main);
+        if(window.onurlchange === undefined) addUrlChangeEvent;
+        window.addEventListener("urlchange", main);
+        function main() {
+            console.log("@Cesaryuan - 转换网页时间形式开始运行");
+            let href = window.location.href;
             for (let key in matchConfig) {
                 if (href.match(key)) {
                     let functionA = matchConfig[key];
@@ -81,6 +88,7 @@
             }
         }
     }
+
 
     function formatDate(dateText) {
         // let dateText = dateElement.textContent.trim();
@@ -154,6 +162,26 @@
         observer.observe(element, {
             childList: true,
             subtree: true
+        });
+    }
+
+    function addUrlChangeEvent() {
+        history.pushState = ( f => function pushState(){
+            var ret = f.apply(this, arguments);
+            window.dispatchEvent(new Event('pushstate'));
+            window.dispatchEvent(new Event('urlchange'));
+            return ret;
+        })(history.pushState);
+
+        history.replaceState = ( f => function replaceState(){
+            var ret = f.apply(this, arguments);
+            window.dispatchEvent(new Event('replacestate'));
+            window.dispatchEvent(new Event('urlchange'));
+            return ret;
+        })(history.replaceState);
+
+        window.addEventListener('popstate',()=>{
+            window.dispatchEvent(new Event('urlchange'))
         });
     }
 })();
