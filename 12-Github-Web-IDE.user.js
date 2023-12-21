@@ -3,7 +3,7 @@
 // @name:zh-CN   Github Web IDE
 // @name:zh-TW   Github Web IDE
 // @name:en      Github Web IDE
-// @version      2.0.3
+// @version      2.0.4
 // @author       zvizvi (migrated by Cesaryuan)
 // @description  ⚡ Open GitHub repositories in online web IDE (Migrated from https://github.com/zvizvi/GitHub-Web-IDE)
 // @description:zh-CN  ⚡ Open GitHub repositories in online web IDE (Migrated from https://github.com/zvizvi/GitHub-Web-IDE)
@@ -414,12 +414,12 @@
     }
 
     function addGitHubSelectMenu() {
-        const menuElement = document.querySelector("#repo-content-turbo-frame .file-navigation");
+        const menuElement = document.querySelector("#repo-content-pjax-container div.Box-sc-g0xbh4-0.bWpuBf");
         if (!menuElement || menuElement.querySelector("#open-in-web-ide")) {
             return;
         }
 
-        const githubHtml = `<summary role="button" type="button" class="btn ml-2">
+        const githubHtml = `<summary role="button" type="button" class="btn">
         <span class="d-none d-md-flex flex-items-center">
           Open In Web IDE
           <span class="dropdown-caret ml-1"></span>
