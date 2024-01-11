@@ -2,7 +2,7 @@
 // @name         谷歌百度搜索引擎快速切换
 // @namespace    http://tampermonkey.net/
 // @version      0.3
-// @description  谷歌百度搜索引擎快速切换
+// @description  自用的手机浏览器谷歌百度搜索引擎快速切换
 // @author       You
 // @author       Cesaryuan
 // @match        *://*.baidu.com/s*
