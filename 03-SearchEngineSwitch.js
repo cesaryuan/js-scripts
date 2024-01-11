@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         谷歌百度搜索引擎快速切换
-// @namespace    http://tampermonkey.net/
+// @namespace    cesar
 // @version      0.3
 // @description  自用的手机浏览器谷歌百度搜索引擎快速切换
 // @author       You
@@ -8,6 +8,7 @@
 // @match        *://*.baidu.com/s*
 // @match        *://www.google.com.*/*
 // @match        *://www.google.com/*
+// @license      MIT
 // @grant        none
 // ==/UserScript==
 
