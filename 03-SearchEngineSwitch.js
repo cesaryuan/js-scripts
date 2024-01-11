@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SearchEngineSwitch
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.3
 // @description  谷歌百度搜索引擎快速切换
 // @author       You
 // @author       Cesaryuan
@@ -78,7 +78,7 @@
 
     // check is in google search page
     function isGoogleSearchPage() {
-        return /google.com.hk\/search/.test(window.location.href);
+        return /google.com(\.\w+)?\/search/.test(window.location.href);
     }
 
     // check is in baidu search page
@@ -98,15 +98,17 @@
 
     function GetSearchInputText(){
         if(isGoogleSearchPage()){
-            return document.querySelector('input[spellcheck]').value;
+            return document.querySelector('textarea[spellcheck]').value;
         }else if(isBaiduSearchPage()){
             return document.querySelector('input[placeholder]')?.value || document.querySelector('#head-queryarea').innerText.trim();
         }else{
             return "";
         }
     }
-    if(isGoogleSearchPage() || isBaiduSearchPage())
+    if(isBaiduSearchPage())
         waitForEle('input', initialize, 5000);
+    if(isGoogleSearchPage())
+        waitForEle('textarea', initialize, 5000);
         
 
 })();
